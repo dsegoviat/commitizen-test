@@ -23,6 +23,7 @@ jobs:
       - name: Create release PR
         uses: peter-evans/create-pull-request@v7
         with:
+          base: main
           branch: release/${{ steps.commitizen.outputs.version }}
           labels: release
           delete-branch: false
