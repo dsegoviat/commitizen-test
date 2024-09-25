@@ -1,6 +1,9 @@
 name: Create Release Candidate
 
 on:
+  push:
+    branches:
+      - master
   workflow_dispatch:
 
 permissions:
@@ -18,8 +21,10 @@ jobs:
         uses: commitizen-tools/commitizen-action@master
         with:
           dry_run: true
-          changelog_increment_filename: /tmp/changelog.md
-          push: false
+      - name: Check if changelog is there
+        shell: bash
+        run: |
+          git status
       - name: Create release PR
         uses: peter-evans/create-pull-request@v7
         with:
