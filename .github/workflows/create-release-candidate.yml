@@ -20,11 +20,8 @@ jobs:
         id: commitizen
         uses: commitizen-tools/commitizen-action@master
         with:
-          dry_run: true
-      - name: Check if changelog is there
-        shell: bash
-        run: |
-          git status
+          push: false
+          changelog_increment_filename: /tmp/changelog.md
       - name: Create release PR
         uses: peter-evans/create-pull-request@v7
         with:
