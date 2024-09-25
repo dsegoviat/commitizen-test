@@ -1,0 +1,30 @@
+name: Create Release Candidate
+
+on:
+  workflow_dispatch:
+
+permissions:
+  pull-requests: write
+
+jobs:
+  create-release-candidate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        # with:
+        #   ref: develop    
+      - name: Calculate version bump
+        id: commitizen
+        uses: commitizen-tools/commitizen-action@master
+        with:
+          dry_run: true
+          changelog_increment_filename: /tmp/changelog.md
+          push: false
+      - name: Create release PR
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: release/${{ steps.commitizen.outputs.version }}
+          labels: release
+          delete-branch: false
+          title: "Release v${{ steps.commitizen.outputs.version }}"
+          body-path: /tmp/changelog.md
