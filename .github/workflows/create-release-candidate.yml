@@ -19,16 +19,13 @@ jobs:
         #   ref: develop
       - name: Check tags
         shell: bash
-        run: |
-          git fetch origin --tags
-          git tag
+        run: git fetch origin --tags
       - name: Calculate version bump
         id: commitizen
         uses: commitizen-tools/commitizen-action@master
         with:
           push: false
-          changelog_increment_filename: /tmp/changelog.md
-          # github_token: ${{ github.token }}
+          changelog_increment_filename: body.md
       - name: Create release PR
         uses: peter-evans/create-pull-request@v7
         with:
@@ -37,4 +34,4 @@ jobs:
           labels: release
           delete-branch: false
           title: "Release v${{ steps.commitizen.outputs.version }}"
-          body-path: /tmp/changelog.md
+          body-path: body.md
