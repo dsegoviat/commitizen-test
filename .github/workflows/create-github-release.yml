@@ -33,7 +33,8 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "noreply@mercedes-benz.com"
-          git fetch origin develop
+          git pull origin main
           git checkout develop
-          git merge origin/main -X ours --no-edit || exit 1
+          git pull origin develop
+          git merge main -X ours
           git push origin develop
