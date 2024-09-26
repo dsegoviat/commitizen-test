@@ -20,6 +20,7 @@ jobs:
       - name: Check tags
         shell: bash
         run: |
+          git fetch origin --tags
           git tag
       - name: Calculate version bump
         id: commitizen
