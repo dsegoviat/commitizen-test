@@ -31,7 +31,9 @@ jobs:
       - name: Store changelog
         id: changelog
         run: |
-          echo "content='$(cat body.md)'" >> $GITHUB_OUTPUT
+          echo 'content<<EOF' >> $GITHUB_OUTPUT
+          echo $(cat body.md) >> $GITHUB_OUTPUT
+          echo 'EOF' >> $GITHUB_OUTPUT
           rm body.md
       - name: Create release PR
         uses: peter-evans/create-pull-request@v7
