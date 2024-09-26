@@ -27,7 +27,10 @@ jobs:
         uses: commitizen-tools/commitizen-action@master
         with:
           push: false
-          changelog_increment_filename: ${{ runner.temp }}/body.md
+          changelog_increment_filename: body.md
+      - name: Store changelog output
+        id: changelog
+        run: echo "content=$(cat body.md)" >> $GITHUB_OUTPUT
       - name: Print changelog increment
         shell: bash
         run: cat /tmp/body.md
@@ -39,4 +42,4 @@ jobs:
           labels: release
           delete-branch: false
           title: "Release v${{ steps.commitizen.outputs.version }}"
-          body-path: ${{ runner.temp }}/body.md
+          body: ${{ steps.changelog.content }}
