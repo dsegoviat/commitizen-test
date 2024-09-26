@@ -38,3 +38,5 @@ jobs:
           git pull origin develop
           git merge main -X ours
           git push origin develop
+        env:
+          GH_TOKEN: ${{ github.token }}
