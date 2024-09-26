@@ -14,10 +14,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: develop
-      - name: Check tags
-        shell: bash
-        run: git fetch origin --tags
+          fetch-depth: 0 # required to get tags
       - name: Calculate version bump
         id: commitizen
         uses: commitizen-tools/commitizen-action@master
@@ -34,9 +31,8 @@ jobs:
       - name: Backmerge to develop
         shell: bash
         run: |
-          git config --global user.name "${{ env.GIT_AUTHOR_NAME }}"
-          git config --global user.email "${{ env.GIT_AUTHOR_EMAIL }}"
-          git fetch origin develop:develop
+          git config user.name "github-actions[bot]"
+          git config user.email "noreply@mercedes-benz.com"
+          git fetch origin develop
           git checkout develop
-          git merge origin/main -Xours
-          git push origin HEAD:develop
+          git merge origin/main -X ours --no-edit || exit 1
