@@ -15,12 +15,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         # with:
-        #   ref: develop    
+        #   ref: develop
       - name: Calculate version bump
         id: commitizen
         uses: commitizen-tools/commitizen-action@master
         with:
-          push: false
+          push: true
           changelog_increment_filename: /tmp/changelog.md
       - name: Create release PR
         uses: peter-evans/create-pull-request@v7
