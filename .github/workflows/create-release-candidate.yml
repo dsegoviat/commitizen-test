@@ -25,7 +25,10 @@ jobs:
         uses: commitizen-tools/commitizen-action@master
         with:
           push: false
-          changelog_increment_filename: /tmp/body.md
+          changelog_increment_filename: ${{ runner.temp }}/body.md
+      - name: Print changelog increment
+        shell: bash
+        run: cat /tmp/body.md
       - name: Create release PR
         uses: peter-evans/create-pull-request@v7
         with:
@@ -34,4 +37,4 @@ jobs:
           labels: release
           delete-branch: false
           title: "Release v${{ steps.commitizen.outputs.version }}"
-          body-path: /tmp/body.md
+          body-path: ${{ runner.temp }}/body.md
