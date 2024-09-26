@@ -28,9 +28,6 @@ jobs:
         with:
           push: false
           changelog_increment_filename: body.md
-      - name: Print changelog increment
-        shell: bash
-        run: cat /tmp/body.md
       - name: Create release PR
         uses: peter-evans/create-pull-request@v7
         with:
