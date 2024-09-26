@@ -24,7 +24,7 @@ jobs:
           mkdir -p ${{ runner.temp }}
       - name: Calculate version bump
         id: commitizen
-        uses: commitizen-tools/commitizen-action@0.21
+        uses: commitizen-tools/commitizen-action
         with:
           dry_run: true
           push: false
