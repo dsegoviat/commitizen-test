@@ -19,7 +19,9 @@ jobs:
         #   ref: develop
       - name: Check tags
         shell: bash
-        run: git fetch origin --tags
+        run: |
+          git fetch origin --tags
+          mkdir -p ${{ runner.temp }}
       - name: Calculate version bump
         id: commitizen
         uses: commitizen-tools/commitizen-action@master
