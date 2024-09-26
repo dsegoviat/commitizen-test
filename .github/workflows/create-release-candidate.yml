@@ -24,45 +24,30 @@ jobs:
           mkdir -p ${{ runner.temp }}
       - name: Calculate version bump
         id: commitizen
-        uses: commitizen-tools/commitizen-action@master
+        uses: commitizen-tools/commitizen-action@0.21
         with:
+          dry_run: true
           push: false
           changelog_increment_filename: body.md
-      - name: Store changelog
-        id: changelog
-        run: |
-          echo 'content<<EOF' >> $GITHUB_OUTPUT
-          echo $(cat body.md) >> $GITHUB_OUTPUT
-          echo 'EOF' >> $GITHUB_OUTPUT
-          rm body.md
       - name: Create release PR
-        uses: peter-evans/create-pull-request@v7
-        with:
-          base: main
-          branch: release/${{ steps.commitizen.outputs.version }}
-          labels: release
-          delete-branch: false
-          title: "Release v${{ steps.commitizen.outputs.version }}"
-          body: ${{ steps.changelog.outputs.content}}
-      # - name: Create release PR
-      #   shell: bash
-      #   if: steps.commitizen.outputs.version != ''
-      #   run: |
-      #     RELEASE_VERSION=${{ steps.commitizen.outputs.version }}
-      #     RELEASE_BRANCH=release/$RELEASE_VERSION
+        shell: bash
+        if: steps.commitizen.outputs.version != ''
+        run: |
+          RELEASE_VERSION=${{ steps.commitizen.outputs.version }}
+          RELEASE_BRANCH=release/$RELEASE_VERSION
 
-      #     if ! git ls-remote --heads origin $RELEASE_BRANCH | grep -q 'refs/heads'; then
-      #       git checkout -b $RELEASE_BRANCH
-      #       git push origin $RELEASE_BRANCH
-      #     fi
+          if ! git ls-remote --heads origin $RELEASE_BRANCH | grep -q 'refs/heads'; then
+            git checkout -b $RELEASE_BRANCH
+            git push origin $RELEASE_BRANCH
+          fi
 
-      #     if ! gh pr list --head $RELEASE_BRANCH --label "release" | grep -q $RELEASE_BRANCH; then
-      #       gh pr create \
-      #         --base main \
-      #         --head $RELEASE_BRANCH \
-      #         --title "Release v${RELEASE_VERSION}" \
-      #         --body "$(cat body.md)" \
-      #         --label release
-      #     fi
-      #   env:
-      #     GH_TOKEN: ${{ github.token }}
+          if ! gh pr list --head $RELEASE_BRANCH --label "release" | grep -q $RELEASE_BRANCH; then
+            gh pr create \
+              --base main \
+              --head $RELEASE_BRANCH \
+              --title "Release v${RELEASE_VERSION}" \
+              --body "$(cat body.md)" \
+              --label release
+          fi
+        env:
+          GH_TOKEN: ${{ github.token }}
