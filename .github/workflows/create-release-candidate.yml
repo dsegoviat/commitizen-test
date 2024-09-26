@@ -28,11 +28,6 @@ jobs:
         with:
           push: false
           changelog_increment_filename: body.md
-      - name: Store changelog output
-        id: changelog
-        run: |
-          echo "content='$(cat body.md)'" >> $GITHUB_OUTPUT
-          rm body.md
       - name: Print changelog increment
         shell: bash
         run: cat /tmp/body.md
@@ -44,4 +39,4 @@ jobs:
           labels: release
           delete-branch: false
           title: "Release v${{ steps.commitizen.outputs.version }}"
-          body: ${{ steps.changelog.content }}
+          body-path: docs/* # prevents body.md from being committed
