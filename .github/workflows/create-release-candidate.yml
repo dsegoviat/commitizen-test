@@ -1,9 +1,6 @@
 name: Create Release Candidate
 
 on:
-  # push:
-  #   branches:
-  #     - main
   workflow_dispatch:
 
 permissions:
@@ -15,13 +12,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        # with:
-        #   ref: develop
+        with:
+          ref: develop
       - name: Check tags
         shell: bash
-        run: |
-          git fetch origin --tags
-          mkdir -p ${{ runner.temp }}
+        run: git fetch origin --tags
       - name: Calculate version bump
         id: commitizen
         uses: commitizen-tools/commitizen-action@master
