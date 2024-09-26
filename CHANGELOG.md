@@ -1,3 +1,10 @@
+## 0.4.3 (2024-09-26)
+
+### Fix
+
+- backmerge issues
+- gh push permissions
+
 ## 0.4.2 (2024-09-26)
 
 ### Fix
