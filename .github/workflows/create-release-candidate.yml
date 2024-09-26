@@ -1,9 +1,9 @@
 name: Create Release Candidate
 
 on:
-  push:
-    branches:
-      - main
+  # push:
+  #   branches:
+  #     - main
   workflow_dispatch:
 
 permissions:
