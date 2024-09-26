@@ -1,3 +1,10 @@
+## 0.3.2 (2024-09-26)
+
+### Fix
+
+- backmerge
+- main trigger branch
+
 ## 0.3.1 (2024-09-26)
 
 ### Fix

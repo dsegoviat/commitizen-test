@@ -3,5 +3,5 @@ commitizen:
   major_version_zero: true
   name: cz_conventional_commits
   tag_format: $version
-  version: 0.3.1
+  version: 0.3.2
   version_scheme: semver
