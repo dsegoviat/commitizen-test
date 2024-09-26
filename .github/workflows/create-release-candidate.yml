@@ -21,7 +21,7 @@ jobs:
         id: commitizen
         uses: commitizen-tools/commitizen-action@master
         with:
-          dry_run: true
+          commit: false
           push: false
           changelog_increment_filename: body.md
       - name: Create release PR
