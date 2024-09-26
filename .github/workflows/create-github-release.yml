@@ -36,3 +36,4 @@ jobs:
           git fetch origin develop
           git checkout develop
           git merge origin/main -X ours --no-edit || exit 1
+          git push origin develop
