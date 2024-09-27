@@ -1,3 +1,12 @@
+## 1.0.1 (2024-09-27)
+
+### Fix
+
+- remove major_version_zero setting
+- **ci**: release job name
+
+## 1.0.0 (2024-09-27)
+
 ## 0.11.0 (2024-09-27)
 
 ### Feat
