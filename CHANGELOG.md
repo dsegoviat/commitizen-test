@@ -1,3 +1,17 @@
+## 0.11.0 (2024-09-27)
+
+### Feat
+
+- remove all foos
+- add foo5
+- add foo4
+- add foo3
+- add foo2
+
+### Fix
+
+- fetch all commits for proper changelong increment
+
 ## 0.10.0 (2024-09-27)
 
 ### BREAKING CHANGE
