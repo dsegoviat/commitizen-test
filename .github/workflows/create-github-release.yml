@@ -36,6 +36,7 @@ jobs:
           git checkout develop
           git pull
           git merge ${{ steps.commitizen.outputs.version }} -X ours --no-ff
+          sudo chmod -R ugo+rwX .
           git push
         env:
           GH_TOKEN: ${{ github.token }}
