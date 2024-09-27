@@ -11,7 +11,7 @@ permissions:
   pull-requests: write
 
 jobs:
-  create-release-candidate:
+  release-candidate:
     runs-on: ubuntu-latest
     steps:
       # Checkout code based on the event type
@@ -22,10 +22,8 @@ jobs:
           ref: develop
 
       - name: Checkout code for pull_request
-        if: github.event_name == 'pull_request'
+        if: github.event_name == 'push'
         uses: actions/checkout@v4
-        with:
-          ref: ${{ github.head_ref }}
 
       - name: Check tags
         shell: bash
@@ -61,12 +59,6 @@ jobs:
           fi
         env:
           GH_TOKEN: ${{ github.token }}
-      
-      - name: Debug variables
-        shell: brash
-        run: |
-          echo "${{ github.head_ref }}"
-          
 
       - name: Update PR Body
         if: github.event_name == 'push'
