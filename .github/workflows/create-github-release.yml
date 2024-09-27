@@ -3,7 +3,7 @@ name: Create GitHub release
 on:
   push:
     branches:
-      - main
+      - master
 
 permissions:
   contents: write
@@ -37,7 +37,7 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "noreply@mercedes-benz.com"
-          git merge ${{ steps.commitizen.outputs.version }} -X ours --no-ff
+          git merge ${{ steps.commitizen.outputs.version }} -X ours
           git push
         env:
           GH_TOKEN: ${{ github.token }}
