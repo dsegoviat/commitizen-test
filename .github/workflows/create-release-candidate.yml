@@ -38,7 +38,7 @@ jobs:
 
           if ! gh pr list --head $RELEASE_BRANCH --label "release" | grep -q $RELEASE_BRANCH; then
             gh pr create \
-              --base main \
+              --base master \
               --head $RELEASE_BRANCH \
               --title "Release v${RELEASE_VERSION}" \
               --body "$(cat body.md)" \
