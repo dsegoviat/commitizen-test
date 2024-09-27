@@ -9,7 +9,7 @@ permissions:
   contents: write
 
 jobs:
-  create-release-candidate:
+  create-release:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
