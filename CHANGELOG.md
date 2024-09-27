@@ -1,3 +1,19 @@
+## 1.1.0 (2024-09-27)
+
+### Feat
+
+- upgrade github-script to v7
+- add foo2
+- add foo
+
+### Fix
+
+- pr body not containing all commits
+
+### Refactor
+
+- some refactor
+
 ## 1.0.1 (2024-09-27)
 
 ### Fix
