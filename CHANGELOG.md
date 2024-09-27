@@ -1,3 +1,19 @@
+## 0.10.0 (2024-09-27)
+
+### BREAKING CHANGE
+
+- This should upgrade the major version
+
+### Feat
+
+- update pr body
+- remove foooo
+
+### Fix
+
+- stuff on pr body
+- foo
+
 ## 0.9.0 (2024-09-27)
 
 ### Feat
