@@ -1,19 +1,17 @@
-name: Release Candidate
+name: Release Candidate 
 
 on:
   workflow_dispatch:
-  pull_request:
+  push:
     branches:
-      - releases/**
-    types:
-      - synchronize
+      - release/*
 
 permissions:
   contents: write
   pull-requests: write
 
 jobs:
-  create-release-candidate:
+  release-candidate:
     runs-on: ubuntu-latest
     steps:
       # Checkout code based on the event type
@@ -24,10 +22,8 @@ jobs:
           ref: develop
 
       - name: Checkout code for pull_request
-        if: github.event_name == 'pull_request'
+        if: github.event_name == 'push'
         uses: actions/checkout@v4
-        with:
-          ref: ${{ github.head_ref }}
 
       - name: Check tags
         shell: bash
@@ -65,7 +61,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
 
       - name: Update PR Body
-        if: github.event_name == 'pull_request' && github.event.action == 'synchronize'
+        if: github.event_name == 'push'
         uses: actions/github-script@v6
         with:
           github-token: ${{ github.token }}
@@ -73,13 +69,28 @@ jobs:
             const fs = require('fs');
             const body = fs.readFileSync('body.md', 'utf8');
 
-            const prNumber = context.payload.pull_request.number;
+            const branchName = process.env.GITHUB_REF.replace('refs/heads/', '');
+            console.log("branch name:", branchName)
             const owner = context.repo.owner;
             const repo = context.repo.repo;
 
-            await github.rest.pulls.update({
-              owner: owner,
-              repo: repo,
-              pull_number: prNumber,
-              body: body,
+            // Find open PRs from this branch
+            const { data: prs } = await github.rest.pulls.list({
+              owner,
+              repo,
+              state: 'open',
+              head: `${owner}:${branchName}`,
             });
+
+            if (prs.length > 0) {
+              const prNumber = prs[0].number;
+
+              await github.rest.pulls.update({
+                owner,
+                repo,
+                pull_number: prNumber,
+                body: body,
+              });
+            } else {
+              console.log(`No open PR found for branch ${branchName}`);
+            }
