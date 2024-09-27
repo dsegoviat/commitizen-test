@@ -1,3 +1,9 @@
+## 0.9.0 (2024-09-27)
+
+### Feat
+
+- update pr body when it exists
+
 ## 0.8.2 (2024-09-27)
 
 ### Fix
