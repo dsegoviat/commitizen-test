@@ -35,8 +35,8 @@ jobs:
       - name: Backmerge to develop
         shell: bash
         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "noreply@mercedes-benz.com"
+          git config user.name "github-actions[bot]"
+          git config user.email "noreply@mercedes-benz.com"
           git merge ${{ steps.commitizen.outputs.version }} -X ours
           git push
         env:
