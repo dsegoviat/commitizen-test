@@ -1,0 +1,49 @@
+#!/bin/sh
+
+. "$(dirname -- "$0")/text-styles.sh"
+
+
+# Get the commit message
+commit="$(cat .git/COMMIT_EDITMSG)"
+
+# Accept merge commits
+merge_regex="^Merge branch "
+if echo "$commit" | grep -qE "$merge_regex"; then
+  exit 0
+fi
+
+# Define the conventional commit regex
+regex="^(build|chore|ci|docs|feat|fix|perf|refactor|revert|style|test)(\(.+\))?(!)?: .+$"
+
+# Check if the commit message matches the conventional commit format
+if ! echo "$commit" | grep -qE "$regex"
+then
+    echo
+    colorPrint red "❌ Failed to create commit. Your commit message does not follow the conventional commit format."
+    colorPrint red "Please use the following format: $(colorPrint brightRed 'type(scope)?: description')"
+    colorPrint red "Available types are listed below. Scope is optional. Use ! after type to indicate breaking change."
+    echo
+    colorPrint brightWhite "Quick examples:"
+    echo "feat: add email notifications on new direct messages"
+    echo "feat(shopping cart): add the amazing button"
+    echo "feat!: remove ticket list endpoint"
+    echo "fix(api): handle empty message in request body"
+    echo "chore(deps): bump some-package-name to version 2.0.0"
+    echo
+    colorPrint brightWhite "Commit types:"
+    colorPrint brightCyan "build: $(colorPrint white "Changes that affect the build system or external dependencies (example scopes: seed, jenkins, bootstrap)" -n)"
+    colorPrint brightCyan "ci: $(colorPrint white "Changes to CI configuration files and scripts" -n)"
+    colorPrint brightCyan "chore: $(colorPrint white "Changes which doesn't change source code or tests (e.g. changes to the build process, auxiliary tools, libraries)" -n)"
+    colorPrint brightCyan "docs: $(colorPrint white "Documentation only changes" -n)"
+    colorPrint brightCyan "feat: $(colorPrint white "A new feature" -n)"
+    colorPrint brightCyan "fix: $(colorPrint white "A bug fix" -n)"
+    colorPrint brightCyan "perf: $(colorPrint white "A code change that improves performance" -n)"
+    colorPrint brightCyan "refactor: $(colorPrint white "A code change that neither fixes a bug nor adds a feature" -n)"
+    colorPrint brightCyan "revert: $(colorPrint white "Revert a change previously introduced" -n)"
+    colorPrint brightCyan "test: $(colorPrint white "Adding missing tests or correcting existing tests" -n)"
+    echo
+
+    echo "More details at $(underline "http://www.conventionalcommits.org")"
+    echo
+    exit 1
+fi
