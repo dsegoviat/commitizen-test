@@ -5,3 +5,4 @@ commitizen:
   tag_format: $version
   version: 1.1.0
   version_scheme: semver
+  template: ./.cz/CHANGELOG.md.j2
