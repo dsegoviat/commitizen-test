@@ -1,3 +1,9 @@
+## 1.2.0 (2024-10-01)
+
+### 🚀 New features
+
+- **cz**: add custom changelog template
+
 ## 1.1.0 (2024-09-27)
 
 ### Feat
