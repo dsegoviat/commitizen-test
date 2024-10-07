@@ -4,5 +4,5 @@ commitizen:
   name: cz_conventional_commits
   tag_format: $version
   template: config/CHANGELOG.md.j2
-  version: 1.4.0
+  version: 1.5.0
   version_scheme: semver

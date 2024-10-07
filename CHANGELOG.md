@@ -1,3 +1,9 @@
+## 1.5.0 (2024-10-07)
+
+### 🚀 New features
+
+- add skip ci
+
 ## 1.4.0 (2024-10-07)
 
 ### 🚀 New features
