@@ -1,3 +1,13 @@
+## 1.4.0 (2024-10-07)
+
+### 🚀 New features
+
+- this should work
+
+### 🐛 Fixes
+
+- rm too
+
 ## 1.3.1 (2024-10-07)
 
 ### 🐛 Fixes
