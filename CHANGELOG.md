@@ -1,3 +1,15 @@
+## 1.3.0 (2024-10-07)
+
+### 🚀 New features
+
+- rm foo1
+- add pre-commit hooks
+
+### 🐛 Fixes
+
+- foo
+- add gh pat
+
 ## 1.2.0 (2024-10-01)
 
 ### 🚀 New features
