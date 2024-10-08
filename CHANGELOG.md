@@ -1,3 +1,19 @@
+## 1.6.0 (2024-10-08)
+
+### 🚀 New features
+
+- add merge strategy warning to pr body
+
+### 🐛 Fixes
+
+- escape stuff
+- pr body
+
+### 🚜 Refactor
+
+- final step
+- improve stuff
+
 ## 1.5.0 (2024-10-07)
 
 ### 🚀 New features
