@@ -69,9 +69,12 @@ jobs:
           script: |
             const fs = require('fs');
             const body = fs.readFileSync('body.md', 'utf8');
+            const warningMessage = `
+
+            ⚠️ Please use \`Create a merge commit\` button. This is very important to maintain commit history integrity.
+            `;
 
             const branchName = process.env.GITHUB_REF.replace('refs/heads/', '');
-            console.log("branch name:", branchName)
             const owner = context.repo.owner;
             const repo = context.repo.repo;
 
@@ -85,12 +88,13 @@ jobs:
 
             if (prs.length > 0) {
               const prNumber = prs[0].number;
+              const updatedBody = existingBody + warningMessage;
 
               await github.rest.pulls.update({
                 owner,
                 repo,
                 pull_number: prNumber,
-                body: body,
+                body: updatedBody,
               });
             } else {
               console.log(`No open PR found for branch ${branchName}`);
