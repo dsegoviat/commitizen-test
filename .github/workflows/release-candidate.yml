@@ -73,7 +73,7 @@ jobs:
 
             ## ⚠️ Important note
 
-            **Please use the `Create a merge commit` option** when merging this pull request. This helps maintain a clean and consistent commit history, ensuring the integrity of our project.
+            **Please use the \`Create a merge commit\` option** when merging this pull request. This helps maintain a clean and consistent commit history, ensuring the integrity of our project.
             `;
 
             const branchName = process.env.GITHUB_REF.replace('refs/heads/', '');
