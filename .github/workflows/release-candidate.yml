@@ -60,17 +60,7 @@ jobs:
           fi
         env:
           GH_TOKEN: ${{ secrets.GH_PAT }}
-      
-      - name: Add PR body disclaimer
-        shell: bash
-        run: |
-          cat <<EOF >> body.md
-        
-          ## ⚠️ Important
-          
-          **Please use the \`Create a merge commit\` option** when merging this pull request. This helps maintain a clean and consistent commit history, ensuring the integrity of our project.
-          EOF
-        
+
       - name: Update PR Body
         if: github.event_name == 'push'
         uses: actions/github-script@v7
@@ -79,6 +69,12 @@ jobs:
           script: |
             const fs = require('fs');
             const body = fs.readFileSync('body.md', 'utf8');
+            const warningMessage = `
+
+            ## ⚠️ Important note
+
+            **Please use the `Create a merge commit` option** when merging this pull request. This helps maintain a clean and consistent commit history, ensuring the integrity of our project.
+            `;
 
             const branchName = process.env.GITHUB_REF.replace('refs/heads/', '');
             const owner = context.repo.owner;
@@ -94,12 +90,13 @@ jobs:
 
             if (prs.length > 0) {
               const prNumber = prs[0].number;
+              const updatedBody = body + warningMessage;
 
               await github.rest.pulls.update({
                 owner,
                 repo,
                 pull_number: prNumber,
-                body: body,
+                body: updatedBody,
               });
             } else {
               console.log(`No open PR found for branch ${branchName}`);
